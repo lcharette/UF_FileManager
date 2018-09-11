@@ -1,0 +1,21 @@
+{
+    "name": "archey347/uf-filemanager",
+    "type": "userfrosting-sprinkle",
+    "description": "Filemanager Sprinkle for UserFrosting.",
+    "homepage": "https://github.com/archey347/uf-filemanager",
+    "license" : "MIT",
+    "authors" : [
+        {
+            "name": "Archey Barrell",
+            "homepage": "https://github.com/archey347"
+        }
+    ],
+    "require": {
+        "league/flysystem": "~1.0"    
+    },
+    "autoload": {
+        "psr-4": {
+            "UserFrosting\\Sprinkle\\FileManager\\": "src/"
+        }
+    }
+}
