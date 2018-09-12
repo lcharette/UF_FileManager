@@ -10,6 +10,7 @@ namespace UserFrosting\Sprinkle\Files\Files;
 use Interop\Container\ContainerInterface;
 use League\Flysystem\Filesystem;
 use Slim\Http\UploadedFile;
+use UserFrosting\Support\Exception\NotFoundException;
 
 /**
  * Files class that manages file uploads and downloads between the file storage and controllers
@@ -64,15 +65,21 @@ class Files
      * 
      * @access public
      * @param Response $response
-     * @param integer $file_id
+     * @param string $file_id
      * @return $file
      * 
      */
     public function download($response, $file_id)
     {
+        if(!$this->filesystem->has($file_id)) {
+            throw new NotFoundException;
+        }
 
+        $mimetype = $this->filesystem->getMimetype($file_id);
 
-        return $response;    
+        return $response->withHeader('Content-Type', $mimetype)
+                        ->write($this->filesystem->read($file_id))
+                        ->withHeader('Content-Disposition', 'attachment;filename="'.$file_id.'"');
     }
 
 
