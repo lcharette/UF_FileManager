@@ -34,7 +34,36 @@ class Files
     public function __construct(ContainerInterface $ci, Filesystem $filesystem)
     {
         $this->ci = $ci;
+
+        $this->filesystem = $filesystem;
     }
 
-    
+    /**
+     * Upload file
+     * 
+     * @access public
+     * @param string $file
+     * @param string $category
+     * @return $file_id
+     * 
+     */
+    public function upload($file, $category)
+    {
+
+    }
+
+    /**
+     * Download a file
+     * 
+     * @access public
+     * @param integer $file_id
+     * @return $file
+     * 
+     */
+    public function download($file_id)
+    {
+        
+    }
+
+
 }
