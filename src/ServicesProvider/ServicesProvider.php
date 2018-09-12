@@ -7,7 +7,7 @@
  */
 namespace UserFrosting\Sprinkle\Files\ServicesProvider;
 
-use UserFrosting\Sprinkle\Files\Files;
+use UserFrosting\Sprinkle\Files\Files\Files;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 /**
