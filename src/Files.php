@@ -23,10 +23,15 @@ class Files
     protected $ci;
 
     /**
+     * @var Filesystem The filesystem object used for creating and reading files
+     */
+    protected $filesystem;
+
+    /**
      * Create a new Files object.
      *
      */
-    public function __construct(ContainerInterface $ci)
+    public function __construct(ContainerInterface $ci, Filesystem $filesystem)
     {
         $this->ci = $ci;
     }
