@@ -5,9 +5,10 @@
  * @link      https://github.com/archey347/uf-filemanager
  * @license   https://github.com/archey347/uf-filemanager/blob/master/LICENSE (MIT License)
  */
-namespace UserFrosting\Sprinkle\FileManager;
+namespace UserFrosting\Sprinkle\Files;
 
 use Interop\Container\ContainerInterface;
+use League\Flysystem\Filesystem;
 
 /**
  * Files class that manages file uploads and downloads between the file storage and controllers
