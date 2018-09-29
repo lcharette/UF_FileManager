@@ -9,7 +9,9 @@ namespace UserFrosting\Sprinkle\Files\ServicesProvider;
 
 use UserFrosting\Sprinkle\Files\Files\Files;
 use League\Flysystem\Adapter\Local;
-use League\Flysystem\Filesystem;
+use League\Flysystem\FileSystem;
+use Interop\Container\ContainerInterface;
+
 /**
  * Registers services for the Files sprinkle.
  *
@@ -20,9 +22,9 @@ class ServicesProvider
     /**
      * Register Files' services.
      *
-     * @param Container $container A DI container implementing ArrayAccess and container-interop.
+     * @param ContainerInterface $container A DI container implementing ArrayAccess and container-interop.
      */
-    public function register($container)
+    public function register(ContainerInterface $container)
     {
         /**
          * Files Service
@@ -30,12 +32,20 @@ class ServicesProvider
          * Supports uploading and downloading files in categories
          */
         $container['files'] = function ($c) {
-            
-            // Config for adapter will go here
-            $adapter = new Local(\UserFrosting\APP_DIR."/storage");
 
-            return new Files($c, new FileSystem($adapter));
+            /** @var \UserFrosting\Support\Repository\Repository $config */
+            $config = $c->config;
+
+            // Creates the adapter
+            switch ($config['storage.adapter']) {
+                case 'local':
+                    $adapter = new Local($config['storage.local.path']);
+                    return new Files($c, new FileSystem($adapter));
+                break;
+                default:
+                    throw new \Exception("Filesystem adapter {$config['storage.adapter']} not found");
+                break;
+            }
         };
-
     }
 }
