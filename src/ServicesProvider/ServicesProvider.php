@@ -9,7 +9,7 @@ namespace UserFrosting\Sprinkle\FileManager\ServicesProvider;
 
 use UserFrosting\Sprinkle\FileManager\Files\Files;
 use League\Flysystem\Adapter\Local;
-use League\Flysystem\FileSystem;
+use League\Flysystem\Filesystem;
 use Interop\Container\ContainerInterface;
 
 /**
@@ -40,7 +40,7 @@ class ServicesProvider
             switch ($config['storage.adapter']) {
                 case 'local':
                     $adapter = new Local($config['storage.local.path']);
-                    return new Files($c, new FileSystem($adapter));
+                    return new Files($c, new Filesystem($adapter));
                 break;
                 default:
                     throw new \Exception("Filesystem adapter {$config['storage.adapter']} not found");
