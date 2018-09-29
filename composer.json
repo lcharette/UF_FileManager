@@ -1,8 +1,8 @@
 {
-    "name": "lcharette/uf-files",
+    "name": "lcharette/uf_filemanager",
     "type": "userfrosting-sprinkle",
     "description": "Filemanager Sprinkle for UserFrosting.",
-    "homepage": "https://github.com/archey347/uf-filemanager",
+    "homepage": "https://github.com/lcharette/UF_FileManager",
     "license" : "MIT",
     "authors" : [
         {
