@@ -1,5 +1,5 @@
 {
-    "name": "archey347/uf-files",
+    "name": "archey347/uf-filemanager",
     "type": "userfrosting-sprinkle",
     "description": "Filemanager Sprinkle for UserFrosting.",
     "homepage": "https://github.com/archey347/uf-filemanager",
@@ -16,7 +16,7 @@
     },
     "autoload": {
         "psr-4": {
-            "UserFrosting\\Sprinkle\\Files\\": "src/"
+            "UserFrosting\\Sprinkle\\FileManager\\": "src/"
         },
         "files" : [
             "defines.php"
@@ -24,10 +24,10 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "UserFrosting\\Sprinkle\\Files\\Tests\\": "tests/"
+            "UserFrosting\\Sprinkle\\FileManager\\Tests\\": "tests/"
         }
     },
     "extra": {
-        "installer-name": "Files"
+        "installer-name": "FileManager"
     }
 }

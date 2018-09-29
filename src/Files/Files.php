@@ -5,7 +5,7 @@
  * @link      https://github.com/archey347/uf-filemanager
  * @license   https://github.com/archey347/uf-filemanager/blob/master/LICENSE (MIT License)
  */
-namespace UserFrosting\Sprinkle\Files\Files;
+namespace UserFrosting\Sprinkle\FileManager\Files;
 
 use Interop\Container\ContainerInterface;
 use League\Flysystem\Filesystem;
@@ -14,7 +14,7 @@ use UserFrosting\Support\Exception\NotFoundException;
 
 /**
  * Files class that manages file uploads and downloads between the file storage and controllers
- * 
+ *
  * @author Archey Barrell
  */
 class Files
@@ -42,12 +42,12 @@ class Files
 
     /**
      * Upload file
-     * 
+     *
      * @access public
      * @param UploadedFile $file
      * @param string $category
      * @return $file_id
-     * 
+     *
      */
     public function upload(UploadedFile $file, $category)
     {
@@ -62,12 +62,12 @@ class Files
 
     /**
      * Download a file
-     * 
+     *
      * @access public
      * @param Response $response
      * @param string $file_id
      * @return $file
-     * 
+     *
      */
     public function download($response, $file_id)
     {
@@ -81,6 +81,4 @@ class Files
                         ->write($this->filesystem->read($file_id))
                         ->withHeader('Content-Disposition', 'attachment;filename="'.$file_id.'"');
     }
-
-
 }

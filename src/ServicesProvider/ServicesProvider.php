@@ -5,9 +5,9 @@
  * @link      https://github.com/archey347/uf-filemanager
  * @license   https://github.com/archey347/uf-filemanager/blob/master/LICENSE (MIT License)
  */
-namespace UserFrosting\Sprinkle\Files\ServicesProvider;
+namespace UserFrosting\Sprinkle\FileManager\ServicesProvider;
 
-use UserFrosting\Sprinkle\Files\Files\Files;
+use UserFrosting\Sprinkle\FileManager\Files\Files;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\FileSystem;
 use Interop\Container\ContainerInterface;
