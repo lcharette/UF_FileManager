@@ -16,7 +16,7 @@
     },
     "autoload": {
         "psr-4": {
-            "UserFrosting\\Sprinkle\\Files\\": "src/"
+            "UserFrosting\\Sprinkle\\FileManager\\": "src/"
         },
         "files" : [
             "defines.php"
@@ -24,10 +24,10 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "UserFrosting\\Sprinkle\\Files\\Tests\\": "tests/"
+            "UserFrosting\\Sprinkle\\FileManager\\Tests\\": "tests/"
         }
     },
     "extra": {
-        "installer-name": "Files"
+        "installer-name": "FileManager"
     }
 }
