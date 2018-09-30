@@ -10,15 +10,15 @@ namespace UserFrosting\Sprinkle\Core\Tests\Unit;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use UserFrosting\Tests\TestCase;
-use UserFrosting\Sprinkle\FileManager\Files\Files;
+use UserFrosting\Sprinkle\FileManager\Manager\FileManager;
 
-class FilesTest extends TestCase
+class FileManagerTest extends TestCase
 {
     public function testClassCreating()
     {
         $adapter = new Local('app/sprinkles/FileManager/tests/storage');
-        $files = new Files($this->ci, new Filesystem($adapter));
+        $files = new FileManager($this->ci, new Filesystem($adapter));
 
-        $this->assertInstanceOf(Files::class, $files);
+        $this->assertInstanceOf(FileManager::class, $files);
     }
 }

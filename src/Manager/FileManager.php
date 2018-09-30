@@ -5,10 +5,11 @@
  * @link      https://github.com/archey347/uf-filemanager
  * @license   https://github.com/archey347/uf-filemanager/blob/master/LICENSE (MIT License)
  */
-namespace UserFrosting\Sprinkle\FileManager\Files;
+namespace UserFrosting\Sprinkle\FileManager\Manager;
 
 use Interop\Container\ContainerInterface;
 use League\Flysystem\Filesystem;
+use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Http\UploadedFile;
 use UserFrosting\Support\Exception\NotFoundException;
 
@@ -17,7 +18,7 @@ use UserFrosting\Support\Exception\NotFoundException;
  *
  * @author Archey Barrell
  */
-class Files
+class FileManager
 {
     /**
      * @var ContainerInterface The global container object, which holds all your services.
@@ -43,7 +44,6 @@ class Files
     /**
      * Upload file
      *
-     * @access public
      * @param UploadedFile $file
      * @param string $category
      * @return $file_id
@@ -63,13 +63,12 @@ class Files
     /**
      * Download a file
      *
-     * @access public
      * @param Response $response
      * @param string $file_id
      * @return $file
      *
      */
-    public function download($response, $file_id)
+    public function download(Response $response, $file_id)
     {
         if(!$this->filesystem->has($file_id)) {
             throw new NotFoundException;

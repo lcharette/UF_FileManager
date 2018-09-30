@@ -7,7 +7,7 @@
  */
 namespace UserFrosting\Sprinkle\FileManager\ServicesProvider;
 
-use UserFrosting\Sprinkle\FileManager\Files\Files;
+use UserFrosting\Sprinkle\FileManager\Manager\FileManager;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use Interop\Container\ContainerInterface;
@@ -30,8 +30,9 @@ class ServicesProvider
          * Files Service
          *
          * Supports uploading and downloading files in categories
+         * @return \UserFrosting\Sprinkle\FileManager\Manager\FileManager
          */
-        $container['files'] = function ($c) {
+        $container['filemanager'] = function ($c) {
 
             /** @var \UserFrosting\Support\Repository\Repository $config */
             $config = $c->config;
@@ -40,12 +41,13 @@ class ServicesProvider
             switch ($config['storage.adapter']) {
                 case 'local':
                     $adapter = new Local($config['storage.local.path']);
-                    return new Files($c, new Filesystem($adapter));
                 break;
                 default:
                     throw new \Exception("Filesystem adapter {$config['storage.adapter']} not found");
                 break;
             }
+
+            return new FileManager($c, new Filesystem($adapter));
         };
     }
 }
