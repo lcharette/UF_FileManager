@@ -7,8 +7,9 @@
  */
 namespace UserFrosting\Sprinkle\Core\Tests\Unit;
 
+use League\Flysystem\Adapter\Local;
+use League\Flysystem\Filesystem;
 use UserFrosting\Tests\TestCase;
-use UserFrosting\Sprinkle\FileManager\Manager\FileManager;
 
 class ServiceProviderTest extends TestCase
 {
@@ -19,7 +20,7 @@ class ServiceProviderTest extends TestCase
     public function testServiceExist()
     {
         $manager = $this->ci->filemanager;
-        $this->assertInstanceOf(FileManager::class, $manager);
+        $this->assertInstanceOf(Filesystem::class, $manager);
     }
 
     /**
@@ -27,23 +28,32 @@ class ServiceProviderTest extends TestCase
      */
     public function testServiceWithLocalAdapter()
     {
-        // Force config
+        // Force config to Local adapter
+        $config = $this->ci->config;
+        $config['storage.adapter'] = 'Local';
 
-        // Resetup service
+        // Get service
+        $manager = $this->ci->filemanager;
+        $this->assertInstanceOf(Filesystem::class, $manager);
+
+        $adapter = $manager->getAdapter();
+        $this->assertInstanceOf(Local::class, $adapter);
     }
+
+    // !TODO :: Allow to change adapter once we're setup
 
     /**
      * Test if the service provider throw an error when using an undefined adapter
+     * @expectedException Exception
+     * @expectedExceptionMessage Filesystem adapter Foo not found
      */
     public function testServiceWithUndefinedAdapter()
     {
-        // Force config
+        // Force config to Foo adapter
+        $config = $this->ci->config;
+        $config['storage.adapter'] = 'Foo';
 
-        // Resetup service
-    }
-
-    
-    protected function runService() {
-
+        // Get service
+        $manager = $this->ci->filemanager;
     }
 }

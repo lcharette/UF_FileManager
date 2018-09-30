@@ -5,42 +5,18 @@
  * @link      https://github.com/archey347/uf-filemanager
  * @license   https://github.com/archey347/uf-filemanager/blob/master/LICENSE (MIT License)
  */
-namespace UserFrosting\Sprinkle\FileManager\Manager;
+namespace UserFrosting\Sprinkle\FileManager\Controller;
 
-use Interop\Container\ContainerInterface;
-use League\Flysystem\Filesystem;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Http\UploadedFile;
+use UserFrosting\Sprinkle\Core\Controller\SimpleController;
 use UserFrosting\Support\Exception\NotFoundException;
 
 /**
- * Files class that manages file uploads and downloads between the file storage and controllers
- *
- * @author Archey Barrell
+ * Controller class that manages file uploads and downloads
  */
-class FileManager
+class FileManagerController extends SimpleController
 {
-    /**
-     * @var ContainerInterface The global container object, which holds all your services.
-     */
-    protected $ci;
-
-    /**
-     * @var Filesystem The filesystem object used for creating and reading files
-     */
-    protected $filesystem;
-
-    /**
-     * Create a new Files object.
-     *
-     */
-    public function __construct(ContainerInterface $ci, Filesystem $filesystem)
-    {
-        $this->ci = $ci;
-
-        $this->filesystem = $filesystem;
-    }
-
     /**
      * Upload file
      *
@@ -55,7 +31,7 @@ class FileManager
 
         $stream = fopen($file->file, "r+");
 
-        $this->filesystem->writeStream($filename, $stream);
+        $this->ci->filesystem->writeStream($filename, $stream);
 
         fclose($stream);
     }
@@ -70,14 +46,14 @@ class FileManager
      */
     public function download(Response $response, $file_id)
     {
-        if(!$this->filesystem->has($file_id)) {
+        if(!$this->ci->filesystem->has($file_id)) {
             throw new NotFoundException;
         }
 
-        $mimetype = $this->filesystem->getMimetype($file_id);
+        $mimetype = $this->ci->filesystem->getMimetype($file_id);
 
         return $response->withHeader('Content-Type', $mimetype)
-                        ->write($this->filesystem->read($file_id))
+                        ->write($this->ci->filesystem->read($file_id))
                         ->withHeader('Content-Disposition', 'attachment;filename="'.$file_id.'"');
     }
 }

@@ -7,7 +7,6 @@
  */
 namespace UserFrosting\Sprinkle\FileManager\ServicesProvider;
 
-use UserFrosting\Sprinkle\FileManager\Manager\FileManager;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use Interop\Container\ContainerInterface;
@@ -20,7 +19,7 @@ use Interop\Container\ContainerInterface;
 class ServicesProvider
 {
     /**
-     * Register Files' services.
+     * Register services.
      *
      * @param ContainerInterface $container A DI container implementing ArrayAccess and container-interop.
      */
@@ -30,7 +29,7 @@ class ServicesProvider
          * Files Service
          *
          * Supports uploading and downloading files in categories
-         * @return \UserFrosting\Sprinkle\FileManager\Manager\FileManager
+         * @return Filesystem
          */
         $container['filemanager'] = function ($c) {
 
@@ -38,7 +37,7 @@ class ServicesProvider
             $config = $c->config;
 
             // Creates the adapter
-            switch ($config['storage.adapter']) {
+            switch (strtolower($config['storage.adapter'])) {
                 case 'local':
                     $adapter = new Local($config['storage.local.path']);
                 break;
@@ -47,7 +46,7 @@ class ServicesProvider
                 break;
             }
 
-            return new FileManager($c, new Filesystem($adapter));
+            return new Filesystem($adapter);
         };
     }
 }
