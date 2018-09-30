@@ -4,7 +4,7 @@
         'storage' => [
             'adapter' => 'local',
             'local' => [
-                'path' => \UserFrosting\STORAGE_DIR
+                'path' => 'app/storage/'//\UserFrosting\STORAGE_DIR
             ]
         ]
     ];
