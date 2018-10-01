@@ -37,12 +37,12 @@ class ServicesProvider
             $config = $c->config;
 
             // Creates the adapter
-            switch (strtolower($config['storage.adapter'])) {
+            switch (strtolower($config['storage.default_adapter'])) {
                 case 'local':
                     $adapter = new Local($config['storage.local.path']);
                 break;
                 default:
-                    throw new \Exception("Filesystem adapter {$config['storage.adapter']} not found");
+                    throw new \Exception("Filesystem adapter {$config['storage.default_adapter']} not found");
                 break;
             }
 

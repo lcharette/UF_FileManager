@@ -21,7 +21,7 @@ class FileManagerControllerTest extends TestCase
         // Create a local instance using the dir in testing
         // Force config to Local adapter
         $config = $this->ci->config;
-        $config['storage.adapter'] = 'Local';
+        $config['storage.default_adapter'] = 'Local';
         $config['storage.local.path'] = \UserFrosting\SPRINKLES_DIR . \UserFrosting\DS . 'FileManager' . \UserFrosting\DS . 'tests' . \UserFrosting\DS . '/storage';
 
         // Get service with our force config and make sure it works

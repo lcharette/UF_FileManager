@@ -30,7 +30,7 @@ class ServiceProviderTest extends TestCase
     {
         // Force config to Local adapter
         $config = $this->ci->config;
-        $config['storage.adapter'] = 'Local';
+        $config['storage.default_adapter'] = 'Local';
 
         // Get service
         $manager = $this->ci->filemanager;
@@ -51,7 +51,7 @@ class ServiceProviderTest extends TestCase
     {
         // Force config to Foo adapter
         $config = $this->ci->config;
-        $config['storage.adapter'] = 'Foo';
+        $config['storage.default_adapter'] = 'Foo';
 
         // Get service
         $manager = $this->ci->filemanager;
