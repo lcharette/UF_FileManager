@@ -41,6 +41,18 @@ class ServicesProvider
                 case 'local':
                     $adapter = new Local($config['storage.local.path']);
                 break;
+                case 'google':
+                    $client = new \Google_Client();
+                    $client->setClientId($config['storage.google.clientID']);
+                    $client->setClientSecret($config['storage.google.clientSecret']);
+                    $client->refreshToken($config['storage.google.refreshToken']);
+
+                    $driveRoot = $config['storage.google.rootPath'] ?: '';
+
+                    $service = new \Google_Service_Drive($client);
+
+                    $adapter = new \Hypweb\Flysystem\GoogleDrive\GoogleDriveAdapter($service, $driveRoot);
+                break;
                 default:
                     throw new \Exception("Filesystem adapter {$config['storage.default_adapter']} not found");
                 break;
