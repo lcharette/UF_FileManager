@@ -7,6 +7,8 @@
  */
 namespace UserFrosting\Sprinkle\FileManager\ServicesProvider;
 
+use Aws\S3\S3Client;
+use League\Flysystem\AwsS3v3\AwsS3Adapter;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use Interop\Container\ContainerInterface;
@@ -52,6 +54,18 @@ class ServicesProvider
                     $service = new \Google_Service_Drive($client);
 
                     $adapter = new \Hypweb\Flysystem\GoogleDrive\GoogleDriveAdapter($service, $driveRoot);
+                break;
+                case 's3':
+                    $client = new S3Client([
+                        'credentials' => [
+                            'key'    => $config['storage.s3.key'],
+                            'secret' => $config['storage.s3.secret']
+                        ],
+                        'region' => $config['storage.s3.region'],
+                        'version' => 'latest',
+                    ]);
+
+                    $adapter = new AwsS3Adapter($client, $config['storage.s3.bucket']);
                 break;
                 default:
                     throw new \Exception("Filesystem adapter {$config['storage.default_adapter']} not found");
